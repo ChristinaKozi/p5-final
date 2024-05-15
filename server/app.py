@@ -49,7 +49,7 @@ class CheckSession(Resource):
         except:
             return make_response({'message':'Session Unavailable'}, 401)
     
-api.add_resource(CheckSession, '/checksession', endpoint = 'checksession')
+api.add_resource(CheckSession, '/checksession', endpoint='checksession')
 
 class Login(Resource):
     def post(self):
@@ -84,7 +84,7 @@ class Users(Resource):
             user_dict = [user.to_dict() for user in users]
             return make_response(user_dict, 200)
         
-        return make_response({'error':'Product not found'}, 404)
+        return make_response({'error':'User not found'}, 404)
     
 api.add_resource(Users, '/users', endpoint='users')
 
@@ -95,9 +95,42 @@ class Venues(Resource):
             venue_dict = [venue.to_dict() for venue in venues]
             return make_response(venue_dict, 200)
         
-        return make_response({'error':'Product not found'}, 404)
+        return make_response({'error':'Venue not found'}, 404)
     
-api.add_resource(Venues, '/venues')
+api.add_resource(Venues, '/venues', endpoint='venues')
+
+class Vendors(Resource):
+    def get(self):
+        vendors = Vendor.query.all()
+        if vendors:
+            vendor_dict = [vendor.to_dict() for vendor in vendors]
+            return make_response(vendor_dict, 200)
+        
+        return make_response({'error':'Vendor not found'}, 404)
+
+api.add_resource(Vendors, '/vendors', endpoint='vendors')
+
+class Entertainment(Resource):
+    def get(self):
+        entertainment = Entertainment.query.all()
+        if entertainment:
+            ent_dict = [ent.to_dict() for ent in entertainment]
+            return make_response(ent_dict, 200)
+        
+        return make_response({'error':'Entertainment not found'}, 404)
+
+api.add_resource(Entertainment, '/entertainment', endpoint='entertainment')
+
+class Booking(Resource):
+    def get(self):
+        bookings = Booking.query.all()
+        if bookings:
+            bookings_dict = [booking.to_dict() for booking in bookings]
+            return make_response(bookings_dict, 200)
+        
+        return make_response({'error':'Booking not found'}, 404)
+
+api.add_resource(Booking, '/bookings', endpoint='bookings')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
