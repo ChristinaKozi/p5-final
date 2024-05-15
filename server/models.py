@@ -39,6 +39,16 @@ class Venue(db.Model, SerializerMixin):
     occupancy = db.Column(db.Integer)
     time_open = db.Column(db.DateTime)
     time_closed = db.Column(db.DateTime)
+    hourly_fee = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'<Product {self.id}: {self.name}'
+        return f'<Venue {self.id}: {self.name}'
+    
+class Vendor(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
+    vendor_type = db.Column(db.String)
+    per_person_fee = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<Vendor {self.id}: {self.name}'
