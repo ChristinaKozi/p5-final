@@ -45,6 +45,8 @@ class Venue(db.Model, SerializerMixin):
         return f'<Venue {self.id}: {self.name}'
     
 class Vendor(db.Model, SerializerMixin):
+    __tablename__ = 'vendors'
+
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     vendor_type = db.Column(db.String)
@@ -52,3 +54,14 @@ class Vendor(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Vendor {self.id}: {self.name}'
+    
+class Entertainment(db.Model, SerializerMixin):
+    __tablename__ = 'entertainment'
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
+    ent_type = db.Column(db.String)
+    hourly_fee = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<Entertainment {self.id}: {self.name}'
