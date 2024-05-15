@@ -1,6 +1,7 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from datetime import datetime
 
 from config import db, bcrypt
 
@@ -81,8 +82,8 @@ class Booking(db.Model, SerializerMixin):
     serialize_rules = ('-user.bookings','-venue.bookings', '-vendor.bookings','-entertainment.bookings',)
 
     id = db.Column(db.Integer, primary_key = True)
-    start_time = db.Column(db.DateTime)
-    end_time = db.Column(db.DateTime)
+    start_time = db.Column(db.Time)
+    end_time = db.Column(db.Time)
     number_of_guests = db.Column(db.Integer)
     total_price = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -94,6 +95,23 @@ class Booking(db.Model, SerializerMixin):
     venue = db.relationship('Venue', back_populates = 'bookings')
     vendor = db.relationship('Vendor', back_populates = 'bookings')
     entertainment = db.relationship('Entertainment', back_populates = 'bookings')
+
+    @property
+    def total_price(self):
+        total = 0
+
+        duration_hours = (self.end_time - self.start_time).hour
+
+        if duration_hours < 0:  
+            duration_hours += 24  
+        if self.entertainment:
+            total += self.entertainment.hourly_fee * duration_hours
+        if self.vendor:
+            total += self.vendor.per_person_fee * self.number_of_guests
+        if self.venue:
+            total += self.venue.hourly_fee * duration_hours
+        
+        return total
 
     def __repr__(self):
         return f'<Booking {self.id}'
