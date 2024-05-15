@@ -6,6 +6,7 @@ from config import db, bcrypt
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
+    serialize_rules = ('-bookings.user',)
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, unique = True, nullable = False)
@@ -25,43 +26,74 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
 
-    # bookings = db.relationship('Booking', back_populates = 'user', cascade='all, delete-orphan')
+    bookings = db.relationship('Booking', back_populates = 'user', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<User {self.id}: {self.username}'
 
 class Venue(db.Model, SerializerMixin):
     __tablename__ = 'venues'
+    serialize_rules = ('-bookings.venue',)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     location = db.Column(db.String)
     occupancy = db.Column(db.Integer)
-    time_open = db.Column(db.DateTime)
-    time_closed = db.Column(db.DateTime)
+    time_open = db.Column(db.Time)
+    time_closed = db.Column(db.Time)
     hourly_fee = db.Column(db.Integer)
+
+    bookings = db.relationship('Booking', back_populates = 'venue', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Venue {self.id}: {self.name}'
     
 class Vendor(db.Model, SerializerMixin):
     __tablename__ = 'vendors'
+    serialize_rules = ('-bookings.vendor',)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     vendor_type = db.Column(db.String)
     per_person_fee = db.Column(db.Integer)
 
+    bookings = db.relationship('Booking', back_populates = 'vendor', cascade='all, delete-orphan')
+
     def __repr__(self):
         return f'<Vendor {self.id}: {self.name}'
     
 class Entertainment(db.Model, SerializerMixin):
     __tablename__ = 'entertainment'
+    serialize_rules = ('-bookings.entertainment',)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     ent_type = db.Column(db.String)
     hourly_fee = db.Column(db.Integer)
 
+    bookings = db.relationship('Booking', back_populates = 'entertainment', cascade='all, delete-orphan')
+
     def __repr__(self):
         return f'<Entertainment {self.id}: {self.name}'
+
+class Booking(db.Model, SerializerMixin):
+    __tablename__ = 'bookings'
+    serialize_rules = ('-user.bookings','-venue.bookings', '-vendor.bookings','-entertainment.bookings',)
+
+    id = db.Column(db.Integer, primary_key = True)
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
+    number_of_guests = db.Column(db.Integer)
+    total_price = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'))
+    vendor_id = db.Column(db.Integer, db.ForeignKey('vendors.id'))
+    entertainment_id = db.Column(db.Integer, db.ForeignKey('entertainment.id'))
+
+    user = db.relationship('User', back_populates = 'bookings')
+    venue = db.relationship('Venue', back_populates = 'bookings')
+    vendor = db.relationship('Vendor', back_populates = 'bookings')
+    entertainment = db.relationship('Entertainment', back_populates = 'bookings')
+
+    def __repr__(self):
+        return f'<Booking {self.id}'
