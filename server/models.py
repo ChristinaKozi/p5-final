@@ -96,11 +96,19 @@ class Booking(db.Model, SerializerMixin):
     vendor = db.relationship('Vendor', back_populates = 'bookings')
     entertainment = db.relationship('Entertainment', back_populates = 'bookings')
 
-    @property
-    def total_price(self):
-        total = 0
+    def __init__(self, start_time, end_time, number_of_guests, user_id, venue_id, vendor_id, entertainment_id):
+        self.start_time = start_time
+        self.end_time = end_time
+        self.number_of_guests = number_of_guests
+        self.user_id = user_id
+        self.venue_id = venue_id
+        self.vendor_id = vendor_id
+        self.entertainment_id = entertainment_id
 
-        duration_hours = (self.end_time - self.start_time).hour
+    @property
+    def calculate_total_price(self):
+        total = 0
+        duration_hours = (self.end_time - self.start_time).total_seconds() / 3600
 
         if duration_hours < 0:  
             duration_hours += 24  

@@ -12,7 +12,7 @@ fake.add_provider(faker_commerce.Provider)
 
 # Local imports
 from app import app
-from models import db, User, Vendor, Venue, Entertainment, Booking
+from models import db, User, Venue, Vendor, Entertainment, Booking
 
 def create_users():
     users = []
@@ -40,10 +40,10 @@ def create_venues():
         datetime = fake.date_time()
         venue = Venue(
             name = fake.ecommerce_name(),
-            location = fake.land_address(),
+            location = fake.address(),
             occupancy = randint(50,450),
-            time_open = datetime.time(8,0),
-            time_closed = datetime.time(23,0),
+            time_open = datetime.replace(hour=8, minute=0, second=0, microsecond=0).time(),
+            time_closed = datetime.replace(hour=23, minute=0, second=0, microsecond=0).time(),
             hourly_fee = randint(20,200)
         )
         venues.append(venue)
@@ -71,28 +71,32 @@ def create_entertainment():
         entertainment.append(ent)
     return entertainment
 
-def create_booking(users, venues, vendors, entertainment):
+def create_bookings(users, venues, vendors, entertainment):
     bookings = []
-    datetime = fake.date_time()
-    start_time = datetime.time()
-    end_time = datetime.time()
-    duration_hours = (end_time - start_time).hours
-
-    user = rc(users)
-    venue = rc(venues)
-    vendor = rc(vendors)
-    ent = rc(entertainment)
-    number_of_guests = randint(40, 300)
-
-    total_price = 0
-    if venue:
-        total_price += venue.hourly_fee * duration_hours
-    if vendor:
-        total_price += vendor.per_person_fee * number_of_guests
-    if ent:
-        total_price += ent.hourly_fee * duration_hours
-
     for i in range(10):
+        datetime_1 = fake.date_time()
+        datetime_2 = datetime_1.replace(hour=22, minute=0, second=0, microsecond=0)
+
+        start_time = datetime_1.time()
+        end_time = datetime_2.time()
+
+        # duration = end_time - start_time
+        # duration_hours = duration.total_seconds() / 3600
+
+        user = rc(users)
+        venue = rc(venues)
+        vendor = rc(vendors)
+        ent = rc(entertainment)
+        number_of_guests = randint(40, 300)
+
+        # total_price = 0
+        # if venue:
+        #     total_price += venue.hourly_fee * duration_hours
+        # if vendor:
+        #     total_price += vendor.per_person_fee * number_of_guests
+        # if ent:
+        #     total_price += ent.hourly_fee * duration_hours
+
         booking = Booking(
             start_time = start_time,
             end_time = end_time,
@@ -101,14 +105,45 @@ def create_booking(users, venues, vendors, entertainment):
             venue_id = venue.id,
             vendor_id = vendor.id,
             entertainment_id = ent.id,
-            total_price = total_price
         )
         bookings.append(booking)
     return bookings
 
 
 if __name__ == '__main__':
-    fake = Faker()
     with app.app_context():
         print("Starting seed...")
-        # Seed code goes here!
+        print("Deleting all records...")
+    
+        Booking.query.delete()
+        User.query.delete()
+        Venue.query.delete()
+        Vendor.query.delete()
+        Entertainment.query.delete()
+
+        print("Creating users...")
+        users = create_users()
+        db.session.add_all(users)
+        db.session.commit()
+
+        print("Creating venues...")
+        venues = create_venues()
+        db.session.add_all(venues)
+        db.session.commit()
+
+        print("Creating vendors...")
+        vendors = create_vendors()
+        db.session.add_all(vendors)
+        db.session.commit()
+
+        print("Creating entertainment...")
+        entertainment = create_entertainment()
+        db.session.add_all(entertainment)
+        db.session.commit()
+
+        print("Creating bookings...")
+        bookings = create_bookings(users, venues, vendors, entertainment)
+        db.session.add_all(bookings)
+        db.session.commit()
+
+        print("Complete.")
