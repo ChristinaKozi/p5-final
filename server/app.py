@@ -110,7 +110,7 @@ class Vendors(Resource):
 
 api.add_resource(Vendors, '/vendors', endpoint='vendors')
 
-class Entertainment(Resource):
+class Entertainments(Resource):
     def get(self):
         entertainment = Entertainment.query.all()
         if entertainment:
@@ -119,9 +119,9 @@ class Entertainment(Resource):
         
         return make_response({'error':'Entertainment not found'}, 404)
 
-api.add_resource(Entertainment, '/entertainment', endpoint='entertainment')
+api.add_resource(Entertainments, '/entertainments')
 
-class Booking(Resource):
+class Bookings(Resource):
     def get(self):
         bookings = Booking.query.all()
         if bookings:
@@ -150,7 +150,7 @@ class Booking(Resource):
         except:
             return make_response({ "errors": ["validation errors"] }, 400)
 
-api.add_resource(Booking, '/bookings', endpoint='bookings')
+api.add_resource(Bookings, '/bookings', endpoint='bookings')
 
 class BookingByID(Resource):
     def get(self, id):
@@ -184,7 +184,7 @@ class BookingByID(Resource):
         return make_response({"error": "Booking not found"}, 404)
     
         
-api.add_resource(BookingByID, 'bookings/<int:id>', endpoint='bookings/<int:id>')
+api.add_resource(BookingByID, '/bookings/<int:id>', endpoint='bookings/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

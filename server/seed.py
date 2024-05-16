@@ -80,22 +80,11 @@ def create_bookings(users, venues, vendors, entertainment):
         start_time = datetime_1.time()
         end_time = datetime_2.time()
 
-        # duration = end_time - start_time
-        # duration_hours = duration.total_seconds() / 3600
-
         user = rc(users)
         venue = rc(venues)
         vendor = rc(vendors)
         ent = rc(entertainment)
         number_of_guests = randint(40, 300)
-
-        # total_price = 0
-        # if venue:
-        #     total_price += venue.hourly_fee * duration_hours
-        # if vendor:
-        #     total_price += vendor.per_person_fee * number_of_guests
-        # if ent:
-        #     total_price += ent.hourly_fee * duration_hours
 
         booking = Booking(
             start_time = start_time,
