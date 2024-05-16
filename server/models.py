@@ -85,7 +85,6 @@ class Booking(db.Model, SerializerMixin):
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
     number_of_guests = db.Column(db.Integer)
-    total_price = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'))
     vendor_id = db.Column(db.Integer, db.ForeignKey('vendors.id'))
@@ -95,15 +94,6 @@ class Booking(db.Model, SerializerMixin):
     venue = db.relationship('Venue', back_populates = 'bookings')
     vendor = db.relationship('Vendor', back_populates = 'bookings')
     entertainment = db.relationship('Entertainment', back_populates = 'bookings')
-
-    def __init__(self, start_time, end_time, number_of_guests, user_id, venue_id, vendor_id, entertainment_id):
-        self.start_time = start_time
-        self.end_time = end_time
-        self.number_of_guests = number_of_guests
-        self.user_id = user_id
-        self.venue_id = venue_id
-        self.vendor_id = vendor_id
-        self.entertainment_id = entertainment_id
 
     @property
     def calculate_total_price(self):
