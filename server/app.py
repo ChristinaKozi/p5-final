@@ -129,8 +129,62 @@ class Booking(Resource):
             return make_response(bookings_dict, 200)
         
         return make_response({'error':'Booking not found'}, 404)
+    
+    def post(self):
+        data = request.get_json()
+        try:
+            new_booking = Booking(
+                start_time = data['start_time'],
+                end_time = data['end_time'],
+                number_of_guests = data['number_of_guests'],
+                user_id = data['user_id'],
+                venue_id = data['venue_id'],
+                vendor_id = data['vendor_id'],
+                entertainment_id = data['entertainment_id']
+            )
+            db.session.add(new_booking)
+            db.session.commit()
+
+            return make_response(new_booking.to_dict(), 201)
+        
+        except:
+            return make_response({ "errors": ["validation errors"] }, 400)
 
 api.add_resource(Booking, '/bookings', endpoint='bookings')
+
+class BookingByID(Resource):
+    def get(self, id):
+        booking = Booking.query.filter(Booking.id == id).first()
+        if booking:
+            return make_response(booking.to_dict(), 200)
+        return make_response({'error':'Review not found'}, 404)
+
+    def patch(self, id):
+        data = request.get_json()
+        booking = Booking.query.filter(Booking.id == id).first()
+        try:
+            for attr in data:
+                setattr(booking, attr, data[attr])
+
+            db.session.add(booking)
+            db.session.commit()
+
+            return make_response(booking.to_dict(), 202)
+
+        except ValueError as e:
+            return make_response({"errors":["validation errors"]}, 400)
+        
+    def delete(self, id):
+        booking = Booking.query.filter(Booking.id == id).first()
+        if booking:
+            db.session.delete(booking)
+            db.session.commit()
+            return make_response({'message':'Booking Deleted'}, 204)
+        
+        return make_response({"error": "Booking not found"}, 404)
+    
+        
+api.add_resource(BookingByID, 'bookings/<int:id>', endpoint='bookings/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
