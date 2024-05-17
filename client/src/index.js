@@ -1,8 +1,20 @@
 import React from "react";
-import App from "./components/App";
+import ReactDOM from 'react-dom/client';
+import App from "./pages/App.js";
 import "./index.css";
-import { createRoot } from "react-dom/client";
+import routes from "./routes.js"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { UserProvider } from "./contexts/UserContext.js";
+
+const router = createBrowserRouter(routes);
 
 const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+const root = ReactDOM.createRoot(container);
+
+root.render(
+    <UserProvider >
+        <RouterProvider router={router} >
+            <App />
+        </RouterProvider>
+    </UserProvider>
+);
