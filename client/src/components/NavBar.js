@@ -22,7 +22,7 @@ function NavBar() {
 
   return (
     <nav className="navbar">
-      <NavLink to="/" className="nav-link">
+      <NavLink to="/login" className="nav-link">
         Login
       </NavLink>
       <br/>

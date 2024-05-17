@@ -8,13 +8,13 @@ import Login from "./pages/Login";
 
 const routes = [
     {
-        path: "/login",
-        element: <Login />,
+        path: "/",
+        element: <App />,
         errorElement: <ErrorPage />
     },
     {
-        path: "/",
-        element: <App />,
+        path: "/login",
+        element: <Login />,
         errorElement: <ErrorPage />
     },
     {

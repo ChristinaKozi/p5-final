@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import NavBar from "../components/NavBar";
-import Login from "./Login"
-import { UserContext } from "../contexts/UserContext";
+// import Login from "./Login"
+// import { UserContext } from "../contexts/UserContext";
 
 function App() {
-  const { user } = useContext(UserContext)
+  // const { user } = useContext(UserContext)
 
-  // if (!user) return <Login />;
+  // // if (!user) return <Login />;
   
   return (
     <>
