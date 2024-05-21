@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 
-const UserContext = createContext()
+const UserContext = createContext({})
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null)

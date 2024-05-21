@@ -131,7 +131,7 @@ class Bookings(Resource):
         return make_response({'error':'Booking not found'}, 404)
     
     def post(self):
-        data = request.get_json()
+        data = request.get_json() 
         try:
             new_booking = Booking(
                 start_time = data['start_time'],
