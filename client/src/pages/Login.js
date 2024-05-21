@@ -4,6 +4,7 @@ import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import App from "./App";
 import { UserContext } from "../contexts/UserContext";
+import Home from "./Home";
 
 function Login() {
     const { user } = useContext(UserContext)
@@ -40,6 +41,7 @@ function Login() {
             </>
             )
             }
+            <Home />
         </>
         )
 }
