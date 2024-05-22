@@ -7,7 +7,7 @@ const BookingProvider = ({ children }) => {
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
     const [numberOfGuests, setNumberOfGuests] = useState('')
-    const [bookingVenue, setBookingVenue] = useState('')
+    const [bookingVenue, setBookingVenue] = useState(null)
     const [vendor, setVendor] = useState('')
     const [entertainment, setEntertainment] = useState('')
 
