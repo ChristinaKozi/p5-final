@@ -7,7 +7,6 @@ function VenueCard({ venue }) {
     const { user } = useContext(UserContext) 
     const { setBookingVenue } = useContext(BookingContext) 
     const { name, location, occupancy, time_open, time_closed, hourly_fee } = venue
-
     const navigate = useNavigate();
 
     function handleTimeFormat(timeString) {
@@ -47,7 +46,7 @@ function VenueCard({ venue }) {
                         <p>{handleTimeFormat(time_closed)}</p>
                         <h4>Rate per hour:</h4>
                         <p>${hourly_fee}</p>
-                        <h4>To move forward, click choose this venue</h4>
+                        <h4>To move forward, click 'Choose This Venue'</h4>
                         <button type='submit'>Choose This Venue</button> 
                     </form>
                     <br />
