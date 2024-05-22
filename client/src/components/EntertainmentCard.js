@@ -12,7 +12,7 @@ function EntertainmentCard({ entertainment }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         setBookingEntertainment(entertainment)
-        navigate('/user')
+        navigate('/confirmation')
     };
 
     return (

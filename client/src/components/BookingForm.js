@@ -4,19 +4,15 @@ import { BookingContext } from "../contexts/BookingContext";
 
 function BookingForm() {
     const navigate = useNavigate();
-    const { date, setDate, 
-        startTime, setStartTime,
-        endTime, setEndTime, 
-        numberOfGuests, setNumberOfGuests } = useContext(BookingContext)
+    const { date, setDate, startTime, setStartTime,endTime, setEndTime, numberOfGuests, setNumberOfGuests } = useContext(BookingContext)
   
     function handleSubmit(e) {
-        e.preventDefault();
-        // console.log(date, startTime, endTime, numberOfGuests)
-        navigate('/venues')
-      }
+      e.preventDefault();
+      navigate('/venues')
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {/* <formfeild> */}
           <label>Date: </label>
           <input

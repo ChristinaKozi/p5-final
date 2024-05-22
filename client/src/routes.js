@@ -5,6 +5,7 @@ import Vendors from "./pages/Vendors"
 import Entertainment from "./pages/Entertainment"
 import UserProfile from "./pages/UserProfile";
 import Login from "./pages/Login";
+import Confirmation from "./pages/Confirmation";
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
     {
         path: "/entertainment",
         element: <Entertainment />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/confirmation",
+        element: <Confirmation />,
         errorElement: <ErrorPage />
     },
     {

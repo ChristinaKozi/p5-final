@@ -5,29 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 function VenueCard({ venue }) {
     const { user } = useContext(UserContext) 
-    const { setBookingVenue } = useContext(BookingContext) 
+    const { setBookingVenue, handleTimeFormat } = useContext(BookingContext) 
     const { name, location, occupancy, time_open, time_closed, hourly_fee } = venue
     const navigate = useNavigate();
-
-    function handleTimeFormat(timeString) {
-        const [hours, minutes] = timeString.split(':').map(Number);
-        const time = new Date();
-        time.setHours(hours);
-        time.setMinutes(minutes);
-        
-        const formattedHours = time.getHours() % 12 || 12;
-        const formattedMinutes = time.getMinutes().toString().padStart(2, '0');
-        const ampm = time.getHours() >= 12 ? 'PM' : 'AM';
-
-        return `${formattedHours}:${formattedMinutes} ${ampm}`;
-    } 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setBookingVenue(venue)
         navigate('/vendors')
     };
-    
 
     return (
         <>
