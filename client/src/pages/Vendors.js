@@ -5,7 +5,6 @@ import VendorCard from "../components/VendorCard";
 
 function Vendors() {
     const [vendors, setVendors] = useState([])
-    const navigate = useNavigate();
 
     useEffect(()=>{
         fetch('/vendors')
@@ -16,11 +15,6 @@ function Vendors() {
     const vendorsList = vendors.map(vendor=>{
         return <VendorCard key={vendor.id} vendor={vendor}/>
     })
-
-    // const handleNextClick = () => {
-    //     navigate('/entertainment');
-    // };
-
 
     return (
         <>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import NavBar from "../components/NavBar";
 import VenueCard from "../components/VenueCard";
-import { useNavigate } from "react-router-dom";
 
 function Venues() {
     const [venues, setVenues] = useState([])

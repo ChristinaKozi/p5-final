@@ -8,8 +8,8 @@ const BookingProvider = ({ children }) => {
     const [endTime, setEndTime] = useState('')
     const [numberOfGuests, setNumberOfGuests] = useState('')
     const [bookingVenue, setBookingVenue] = useState(null)
-    const [vendor, setVendor] = useState('')
-    const [entertainment, setEntertainment] = useState('')
+    const [bookingVendor, setBookingVendor] = useState('')
+    const [bookingEntertainment, setBookingEntertainment] = useState('')
 
     return <BookingContext.Provider value={{ 
         date, setDate, 
@@ -17,8 +17,8 @@ const BookingProvider = ({ children }) => {
         endTime, setEndTime, 
         numberOfGuests, setNumberOfGuests,
         bookingVenue, setBookingVenue,
-        vendor, setVendor,
-        entertainment, setEntertainment
+        bookingVendor, setBookingVendor,
+        bookingEntertainment, setBookingEntertainment
         }}>
         { children }
     </BookingContext.Provider>

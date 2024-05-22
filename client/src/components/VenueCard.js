@@ -1,11 +1,11 @@
-import React, { useState, useContext} from "react";
+import React, { useContext} from "react";
 import { UserContext } from "../contexts/UserContext";
 import { BookingContext } from "../contexts/BookingContext";
 import { useNavigate } from "react-router-dom";
 
 function VenueCard({ venue }) {
     const { user } = useContext(UserContext) 
-    const { bookingVenue, setBookingVenue } = useContext(BookingContext) 
+    const { setBookingVenue } = useContext(BookingContext) 
     const { name, location, occupancy, time_open, time_closed, hourly_fee } = venue
 
     const navigate = useNavigate();
