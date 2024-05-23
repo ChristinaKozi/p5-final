@@ -12,15 +12,14 @@ function BookingForm() {
       const selectedDate = new Date(values.date);
       const selectedStartTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.startTime.split(':'));
       const selectedEndTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.endTime.split(':'));
-  
+
       setDate(selectedDate);
       setStartTime(selectedStartTime);
       setEndTime(selectedEndTime);
       setNumberOfGuests(values.numberOfGuests)
-      // navigate('/venues')
-      console.log('date' +date,typeof(date), 'startTime' +startTime, typeof(startTime),'endTime' +endTime,typeof(endTime),'numberOfGuests' +numberOfGuests,typeof(numberOfGuests))
+      navigate('/venues')
     }
-
+    
     const schema = yup.object({
       date: yup.date().min(new Date(), "Date must be after the today's date").required(),
       startTime: yup.string().required(),

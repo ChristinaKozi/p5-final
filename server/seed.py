@@ -74,11 +74,8 @@ def create_entertainment():
 def create_bookings(users, venues, vendors, entertainment):
     bookings = []
     for i in range(10):
-        datetime_1 = fake.date_time()
-        datetime_2 = datetime_1.replace(hour=22, minute=0, second=0, microsecond=0)
-
-        start_time = datetime_1.time()
-        end_time = datetime_2.time()
+        start_time = fake.date_time()
+        end_time = start_time.replace(hour=22, minute=0, second=0, microsecond=0)
 
         user = rc(users)
         venue = rc(venues)

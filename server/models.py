@@ -82,8 +82,8 @@ class Booking(db.Model, SerializerMixin):
     serialize_rules = ('-user.bookings','-venue.bookings', '-vendor.bookings','-entertainment.bookings',)
 
     id = db.Column(db.Integer, primary_key = True)
-    start_time = db.Column(db.Time)
-    end_time = db.Column(db.Time)
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
     number_of_guests = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     venue_id = db.Column(db.Integer, db.ForeignKey('venues.id'))
@@ -98,10 +98,11 @@ class Booking(db.Model, SerializerMixin):
     @property
     def calculate_total_price(self):
         total = 0
+        if self.start_time >= self.end_time:
+            return total 
+        
         duration_hours = (self.end_time - self.start_time).total_seconds() / 3600
-
-        if duration_hours < 0:  
-            duration_hours += 24  
+ 
         if self.entertainment:
             total += self.entertainment.hourly_fee * duration_hours
         if self.vendor:
