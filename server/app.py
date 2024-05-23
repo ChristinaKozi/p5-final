@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # Standard library imports
+from datetime import datetime
 
 # Remote library imports
 from flask import request, session, make_response
@@ -133,9 +134,12 @@ class Bookings(Resource):
     def post(self):
         data = request.get_json() 
         try:
+            start_time = datetime.strptime(data['start_time'], '%Y-%m-%dT%H:%M:%S.%fZ')
+            end_time = datetime.strptime(data['end_time'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
             new_booking = Booking(
-                start_time = data['start_time'],
-                end_time = data['end_time'],
+                start_time = start_time,
+                end_time = end_time,
                 number_of_guests = data['number_of_guests'],
                 user_id = data['user_id'],
                 venue_id = data['venue_id'],
@@ -148,7 +152,7 @@ class Bookings(Resource):
             return make_response(new_booking.to_dict(), 201)
         
         except:
-            return make_response({ "errors": ["validation errors"] }, 400)
+            return make_response({ "errors": ['Could not create booking'] }, 400)
 
 api.add_resource(Bookings, '/bookings', endpoint='bookings')
 

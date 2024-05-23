@@ -10,6 +10,7 @@ const BookingProvider = ({ children }) => {
     const [bookingVenue, setBookingVenue] = useState({})
     const [bookingVendor, setBookingVendor] = useState({})
     const [bookingEntertainment, setBookingEntertainment] = useState({})
+    const [newBooking, setNewBooking] = useState('')
 
     function handleTimeFormat(timeString) {
         const [hours, minutes] = timeString.split(':').map(Number);
@@ -32,6 +33,7 @@ const BookingProvider = ({ children }) => {
         bookingVenue, setBookingVenue,
         bookingVendor, setBookingVendor,
         bookingEntertainment, setBookingEntertainment,
+        newBooking, setNewBooking,
         handleTimeFormat
         }}>
         { children }
