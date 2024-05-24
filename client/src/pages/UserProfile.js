@@ -36,7 +36,7 @@ function UserProfile() {
     const filteredBookings = bookings.filter((booking)=>booking.user_id === user.id)
     
     const bookingList = filteredBookings.map(booking=>{
-        return <BookingCard key={booking.id} booking={booking} />
+        return <BookingCard key={booking.id} booking={booking} bookings={bookings} setBookings={setBookings} />
     })
 
     return (

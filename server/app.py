@@ -146,6 +146,7 @@ class Bookings(Resource):
                 vendor_id = data['vendor_id'],
                 entertainment_id = data['entertainment_id']
             )
+
             db.session.add(new_booking)
             db.session.commit()
 
@@ -167,8 +168,12 @@ class BookingByID(Resource):
         data = request.get_json()
         booking = Booking.query.filter(Booking.id == id).first()
         try:
-            for attr in data:
-                setattr(booking, attr, data[attr])
+            start_time = datetime.strptime(data['start_time'], '%Y-%m-%dT%H:%M:%S.%fZ')
+            end_time = datetime.strptime(data['end_time'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
+            booking.start_time = start_time
+            booking.end_time = end_time
+            booking.number_of_guests = data['number_of_guests']
 
             db.session.add(booking)
             db.session.commit()
