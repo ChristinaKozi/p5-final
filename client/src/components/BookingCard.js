@@ -3,13 +3,11 @@ import * as yup from 'yup'
 import { useFormik } from "formik";
 import { headers } from "../Globals";
 
+
 function BookingCard({ booking, setBookings, bookings }) {
     const { start_time, end_time, number_of_guests, venue, entertainment, vendor } = booking
     const [editing, setEditing] = useState(false)
-
-    // const start_time_date_obj = new Date(start_time);
-    // const end_time_date_obj = new Date(end_time);
-
+    const [errors, setErrors] = useState([]);
 
     function handleEdit() {
         setEditing(true)
@@ -35,15 +33,27 @@ function BookingCard({ booking, setBookings, bookings }) {
     }
 
     function handleSubmit(values) {
-        const selectedDate = new Date(values.date);
-        const selectedStartTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.startTime.split(':'));
-        const selectedEndTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.endTime.split(':'));
+        console.log('Form values:', values);
 
+        const selectedDate = new Date(values.date);
+        console.log('Selected date:', selectedDate);
+    
+        const selectedStartTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.startTime.split(':'));
+        console.log('Selected start time:', selectedStartTime);
+    
+        const selectedEndTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.endTime.split(':'));
+        console.log('Selected end time:', selectedEndTime);
+
+        const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));
+        const adjustedEndTime = new Date(selectedEndTime.getTime() - (selectedEndTime.getTimezoneOffset() * 60000));
+
+    
         const bookingData = {
-            start_time: selectedStartTime.toISOString(),
-            end_time: selectedEndTime.toISOString(),
+            start_time: adjustedStartTime.toISOString(),
+            end_time: adjustedEndTime.toISOString(),
             number_of_guests: values.numberOfGuests,
-        }
+        };
+        console.log('Booking data:', bookingData);
 
         fetch(`/bookings/${booking.id}`, {
             method: "PATCH",
@@ -52,19 +62,26 @@ function BookingCard({ booking, setBookings, bookings }) {
         })
         .then((r)=>{
             if (r.status === 202) {
-                return r.json()
+                return r.json();
+            } else {
+                throw new Error("Failed to update booking");
             }
         })
         .then(()=>{
-            const updatedBookings = bookings.map((b)=>{
+            const updatedBookings = bookings.map((b) => {
                 if (b.id === booking.id) {
-                    return {...b, date: selectedDate, startTime: selectedStartTime, endTime: selectedEndTime }
+                    return {
+                        ...b, 
+                        startTime: selectedStartTime, 
+                        endTime: selectedEndTime,
+                        number_of_guests: values.numberOfGuests 
+                    };
                 } else {
-                    return b
+                    return b;
                 }
-            })
-            setBookings(updatedBookings)
-            setEditing(false)
+            });
+            setBookings(updatedBookings);
+            setEditing(false);
         })
         .catch((error) => {
             console.error("Error updating booking", error);
@@ -72,18 +89,18 @@ function BookingCard({ booking, setBookings, bookings }) {
     }
 
     const schema = yup.object({
-        date: yup.date().min(new Date(), "Date must be after the today's date").required(),
-        startTime: yup.string().required(),
-        endTime: yup.string().required(),
-        numberOfGuests: yup.number().positive().required()
+        date: yup.date().min(new Date(), "Date must be after the today's date"),
+        startTime: yup.string(),
+        endTime: yup.string(),
+        numberOfGuests: yup.number().positive(),
       })
   
       const formik = useFormik({
         initialValues: {
-          date: "",
-          startTime: "",
-          endTime: "",
-          numberOfGuests: ""
+          date: '',
+          startTime: '',
+          endTime: '',
+          numberOfGuests: '',
         },
         validationSchema: schema,
         onSubmit: handleSubmit
@@ -143,6 +160,9 @@ function BookingCard({ booking, setBookings, bookings }) {
                 <button type='submit'>Save</button> &nbsp;
                 <button onClick={handleCancelEdit}>Cancel</button>
             </form>
+            {errors.map((err)=>(
+                    <p key={err}>{err}</p>
+                ))}
             </>
         ) : (
             <>
@@ -162,6 +182,9 @@ function BookingCard({ booking, setBookings, bookings }) {
                 <p>{entertainment.name}</p>
                 <button onClick={handleEdit}>Edit</button> &nbsp;
                 <button onClick={handleDeleteReview}>Delete</button>
+                {errors.map((err)=>(
+                    <p key={err}>{err}</p>
+                ))}
             </>)}
         <br></br><br></br>
     </>

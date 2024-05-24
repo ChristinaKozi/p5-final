@@ -32,7 +32,7 @@ function BookingForm() {
         date: "",
         startTime: "",
         endTime: "",
-        numberOfGuests: ""
+        numberOfGuests: "",
       },
       validationSchema: schema,
       onSubmit: handleSubmit

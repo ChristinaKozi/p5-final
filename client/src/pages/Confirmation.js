@@ -8,7 +8,7 @@ import { headers } from "../Globals";
 function Confirmation() {
     const [errors, setErrors] = useState([]);
     const { user } = useContext(UserContext) 
-    const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment, setNewBooking} = useContext(BookingContext) 
+    const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment} = useContext(BookingContext) 
     const navigate = useNavigate();
 
     const durationInHours = (start, end) => {
@@ -27,9 +27,13 @@ function Confirmation() {
         totalFee += bookingVenue.hourly_fee * durationInHours(startTime, endTime);
     }
 
+    const adjustedStartTime = new Date(startTime.getTime() - (startTime.getTimezoneOffset() * 60000));
+    const adjustedEndTime = new Date(endTime.getTime() - (endTime.getTimezoneOffset() * 60000));
+
+
     const bookingData = {
-        start_time: startTime.toISOString(),
-        end_time: endTime.toISOString(),
+        start_time: adjustedStartTime.toISOString(),
+        end_time: adjustedEndTime.toISOString(),
         number_of_guests: numberOfGuests,
         user_id: user.id,
         venue_id: bookingVenue.id,
@@ -45,9 +49,7 @@ function Confirmation() {
         })
         .then((r)=>{
             if (r.status === 201) {
-                r.json().then(booking=>{
-                    setNewBooking(booking)
-                })
+                return r.json()
             } else {
                 r.json().then((data)=> {
                     if (data.error) {
