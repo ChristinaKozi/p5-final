@@ -36,12 +36,14 @@ function BookingCard({ booking, setBookings, bookings }) {
         console.log('Form values:', values);
 
         const selectedDate = new Date(values.date);
-        console.log('Selected date:', selectedDate);
+        const adjustedDate = new Date(selectedDate.getTime())
+        adjustedDate.setDate(selectedDate.getDate() + 1);
+        console.log('adjusted date:', adjustedDate);
     
-        const selectedStartTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.startTime.split(':'));
+        const selectedStartTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.startTime.split(':'));
         console.log('Selected start time:', selectedStartTime);
     
-        const selectedEndTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.endTime.split(':'));
+        const selectedEndTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.endTime.split(':'));
         console.log('Selected end time:', selectedEndTime);
 
         const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));

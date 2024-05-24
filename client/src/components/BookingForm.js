@@ -10,10 +10,13 @@ function BookingForm() {
   
     function handleSubmit(values) {
       const selectedDate = new Date(values.date);
-      const selectedStartTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.startTime.split(':'));
-      const selectedEndTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), ...values.endTime.split(':'));
+      const adjustedDate = new Date(selectedDate.getTime())
+      adjustedDate.setDate(selectedDate.getDate() + 1);
+ 
+      const selectedStartTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.startTime.split(':'));
+      const selectedEndTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.endTime.split(':'));
 
-      setDate(selectedDate);
+      setDate(adjustedDate);
       setStartTime(selectedStartTime);
       setEndTime(selectedEndTime);
       setNumberOfGuests(values.numberOfGuests)
