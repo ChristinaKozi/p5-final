@@ -48,7 +48,7 @@ function BookingCard({ booking, setBookings, bookings }) {
 
         const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));
         const adjustedEndTime = new Date(selectedEndTime.getTime() - (selectedEndTime.getTimezoneOffset() * 60000));
-
+        console.log(adjustedStartTime, adjustedEndTime)
     
         const bookingData = {
             start_time: adjustedStartTime.toISOString(),
@@ -74,14 +74,15 @@ function BookingCard({ booking, setBookings, bookings }) {
                 if (b.id === booking.id) {
                     return {
                         ...b, 
-                        startTime: selectedStartTime, 
-                        endTime: selectedEndTime,
+                        start_time: selectedStartTime, 
+                        end_time: selectedEndTime,
                         number_of_guests: values.numberOfGuests 
                     };
                 } else {
                     return b;
                 }
             });
+            console.log(updatedBookings, 'poopy')
             setBookings(updatedBookings);
             setEditing(false);
         })
