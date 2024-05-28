@@ -8,7 +8,7 @@ import { headers } from "../Globals";
 function Confirmation() {
     const [errors, setErrors] = useState([]);
     const { user } = useContext(UserContext) 
-    const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment} = useContext(BookingContext) 
+    const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment, setTotalFee, totalFee} = useContext(BookingContext) 
     const navigate = useNavigate();
 
     const durationInHours = (start, end) => {
@@ -16,19 +16,23 @@ function Confirmation() {
         return durationInMillis / (1000 * 60 * 60);
     };
 
-    let totalFee = 0;
+    let updatedTotalFee = 0
     if (bookingEntertainment) {
-        totalFee += bookingEntertainment.hourly_fee * durationInHours(startTime, endTime);
+        updatedTotalFee += bookingEntertainment.hourly_fee * durationInHours(startTime, endTime)
+        setTotalFee(updatedTotalFee)
     }
     if (bookingVendor) {
-        totalFee += bookingVendor.per_person_fee * numberOfGuests;
+        updatedTotalFee += bookingVendor.per_person_fee * numberOfGuests
+        setTotalFee(updatedTotalFee)
     }
     if (bookingVenue) {
-        totalFee += bookingVenue.hourly_fee * durationInHours(startTime, endTime);
+        updatedTotalFee += bookingVenue.hourly_fee * durationInHours(startTime, endTime)
+        setTotalFee(updatedTotalFee)
+        console.log(updatedTotalFee)
     }
 
-    const adjustedStartTime = new Date(startTime.getTime() - (startTime.getTimezoneOffset() * 60000));
-    const adjustedEndTime = new Date(endTime.getTime() - (endTime.getTimezoneOffset() * 60000));
+    const adjustedStartTime = new Date(startTime.getTime() - (startTime.getTimezoneOffset() * 60000))
+    const adjustedEndTime = new Date(endTime.getTime() - (endTime.getTimezoneOffset() * 60000))
 
 
     const bookingData = {
@@ -83,7 +87,16 @@ function Confirmation() {
                 <h4>Number of Guests:</h4>
                 <p>{numberOfGuests}</p>
                 <h4>Total fee:</h4>
-                <p>${totalFee.toFixed(2)}</p>
+                <p>Venue Fee:</p>
+                <p>${bookingVenue.hourly_fee} per hour * {durationInHours(startTime, endTime)} hours </p>
+                <p>${(bookingVenue.hourly_fee * durationInHours(startTime, endTime)).toFixed(2)}</p>
+                <p>Vendor fee:  </p>
+                <p>${bookingVendor.per_person_fee} per person * {numberOfGuests} guests </p>
+                <p>${(bookingVendor.per_person_fee * numberOfGuests).toFixed(2)}</p>
+                <p>Entertainment fee: </p>
+                <p>${bookingEntertainment.hourly_fee} per hour * {durationInHours(startTime, endTime)} hours</p>
+                <p>${(bookingEntertainment.hourly_fee * durationInHours(startTime, endTime)).toFixed(2)}</p>
+                <p>= Total: ${totalFee.toFixed(2)}</p>
                 <button onClick={handleClick}>Confirm Booking</button>
                 {errors.map((err)=>(
                     <p key={err}>{err}</p>

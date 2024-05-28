@@ -25,7 +25,7 @@ function VendorCard({ vendor }) {
                     <h4>Vendor Type:</h4>
                     <p>{vendor_type}</p>
                     <h4>Fee Per Person:</h4>
-                    <p>{per_person_fee}</p>
+                    <p>${per_person_fee}</p>
                     <h4>To move forward, click 'Choose This Vendor'</h4>
                     <button type='submit'>Choose This Vendor</button> 
                 </form>
@@ -39,7 +39,7 @@ function VendorCard({ vendor }) {
                     <h4>Vendor Type:</h4>
                     <p>{vendor_type}</p>
                     <h4>Fee Per Person:</h4>
-                    <p>{per_person_fee}</p>
+                    <p>${per_person_fee}</p>
                 </article>
                 <br />
             </>

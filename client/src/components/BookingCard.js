@@ -48,7 +48,6 @@ function BookingCard({ booking, setBookings, bookings }) {
 
         const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));
         const adjustedEndTime = new Date(selectedEndTime.getTime() - (selectedEndTime.getTimezoneOffset() * 60000));
-        console.log(adjustedStartTime, adjustedEndTime)
     
         const bookingData = {
             start_time: adjustedStartTime.toISOString(),
