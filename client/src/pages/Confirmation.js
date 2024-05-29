@@ -14,7 +14,7 @@ function Confirmation() {
 
     const durationInHours = (start, end) => {
         const durationInMillis = new Date(end) - new Date(start);
-        return durationInMillis / (1000 * 60 * 60);
+        return (durationInMillis / (1000 * 60 * 60)).toFixed(2);
     };
 
     let totalFee = 0
@@ -90,7 +90,7 @@ function Confirmation() {
                 {bookingVenue !== null ? (
                 <>
                 <p>Venue Fee: <strong>{bookingVenue.name}</strong></p>
-                <p>${bookingVenue.hourly_fee} per hour * {(durationInHours(startTime, endTime)).toFixed(2)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
+                <p>${bookingVenue.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>{(bookingVenue.hourly_fee * durationInHours(startTime, endTime)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 </>
                 ) : (null)}
@@ -106,7 +106,7 @@ function Confirmation() {
                 {bookingEntertainment !== null ? (
                 <>
                 <p>Entertainment fee: <strong>{bookingEntertainment.name}</strong></p>
-                <p>${bookingEntertainment.hourly_fee} per hour * {(durationInHours(startTime, endTime)).toFixed(2)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
+                <p>${bookingEntertainment.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>{(bookingEntertainment.hourly_fee * durationInHours(startTime, endTime)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 </>
                 ) : (null) }

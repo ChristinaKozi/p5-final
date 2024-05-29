@@ -15,7 +15,7 @@ function BookingForm() {
       setNumberOfGuests('')
       setBookingVenue(null)
       setBookingVendor(null)
-      setBookingEntertainment(null)
+      setBookingEntertainment()
 
       const selectedDate = new Date(values.date);
       const adjustedDate = new Date(selectedDate.getTime())
@@ -46,7 +46,7 @@ function BookingForm() {
         numberOfGuests: "",
       },
       validationSchema: schema,
-      onSubmit: handleSubmit
+      onSubmit: handleSubmit,
     })
 
     const displayErrors = (error) => {
