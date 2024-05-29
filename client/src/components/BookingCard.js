@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react"
+import React, { useState } from "react"
 import * as yup from 'yup'
 import { useFormik } from "formik";
 import { headers } from "../Globals";
@@ -34,19 +34,26 @@ function BookingCard({ booking, setBookings, bookings }) {
     }
 
     function handleSubmit(values) {
-        console.log('Form values:', values);
+        // console.log('Form values:', values);
 
+        // creates datetime object for inputted date value
         const selectedDate = new Date(values.date);
         const adjustedDate = new Date(selectedDate.getTime())
         adjustedDate.setDate(selectedDate.getDate() + 1);
-        console.log('adjusted date:', adjustedDate);
-    
+        
+        // console.log('adjusted date:', adjustedDate);
+        
+        // creates datetime object for inputted start time value
         const selectedStartTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.startTime.split(':'));
-        console.log('Selected start time:', selectedStartTime);
+        
+        // console.log('Selected start time:', selectedStartTime);
     
+        // creates datetime object for inputted end time value
         const selectedEndTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.endTime.split(':'));
-        console.log('Selected end time:', selectedEndTime);
+        
+        // console.log('Selected end time:', selectedEndTime);
 
+        // converts to UTC time zone
         const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));
         const adjustedEndTime = new Date(selectedEndTime.getTime() - (selectedEndTime.getTimezoneOffset() * 60000));
     
@@ -55,7 +62,8 @@ function BookingCard({ booking, setBookings, bookings }) {
             end_time: adjustedEndTime.toISOString(),
             number_of_guests: values.numberOfGuests,
         };
-        console.log('Booking data:', bookingData);
+        
+        // console.log('Booking data:', bookingData);
 
         fetch(`/bookings/${booking.id}`, {
             method: "PATCH",
@@ -155,12 +163,28 @@ function BookingCard({ booking, setBookings, bookings }) {
                     onChange={ formik.handleChange }>
                 </input>
                 { displayErrors(formik.errors.numberOfGuests) }
+
+                {venue !== null? (
+                <>
                 <h4>Venue:</h4>
                 <p>{venue.name}</p>
+                </>
+                ) : (null)}
+
+
+                {vendor !== null? (
+                <>
                 <h4>Vendor:</h4>
                 <p>{vendor.name}</p>
+                </>
+                ) : (null)}
+
+                {entertainment !== null? (
+                <>
                 <h4>Entertainment:</h4>
                 <p>{entertainment.name}</p>
+                </>
+                ) : (null)}
                 <button type='submit'>Save</button> &nbsp;
                 <button onClick={handleCancelEdit}>Cancel</button>
             </form>
@@ -178,14 +202,30 @@ function BookingCard({ booking, setBookings, bookings }) {
                 <p>{new Date(end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <h4>Number of Guests:</h4>
                 <p>{number_of_guests}</p>
+
+                {venue !== null? (
+                <>
                 <h4>Venue:</h4>
                 <p>{venue.name}</p>
+                </>
+                ) : (null)}
+
+                {vendor !== null? (
+                <>
                 <h4>Vendor:</h4>
                 <p>{vendor.name}</p>
+                </>
+                ) : (null)}
+
+                {entertainment !== null? (
+                <>
                 <h4>Entertainment:</h4>
                 <p>{entertainment.name}</p>
+                </>
+                ) : (null)}
+
                 <h4>Total Fee:</h4>
-                <p>${total.toFixed(2)}</p>
+                <p>{total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 <button onClick={handleEdit}>Edit</button> &nbsp;
                 <button onClick={handleDeleteReview}>Delete</button>
                 {errors.map((err)=>(

@@ -6,9 +6,17 @@ import { useFormik } from "formik";
 
 function BookingForm() {
     const navigate = useNavigate();
-    const { date, setDate, startTime, setStartTime, endTime, setEndTime, numberOfGuests, setNumberOfGuests } = useContext(BookingContext)
-  
+    const { setDate, setStartTime, setEndTime, setNumberOfGuests, setBookingVenue, setBookingVendor, setBookingEntertainment } = useContext(BookingContext)
+
     function handleSubmit(values) {
+      setDate('')
+      setStartTime('')
+      setEndTime('')
+      setNumberOfGuests('')
+      setBookingVenue(null)
+      setBookingVendor(null)
+      setBookingEntertainment(null)
+
       const selectedDate = new Date(values.date);
       const adjustedDate = new Date(selectedDate.getTime())
       adjustedDate.setDate(selectedDate.getDate() + 1);
