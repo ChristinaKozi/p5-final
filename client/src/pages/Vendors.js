@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react"
 import NavBar from "../components/NavBar";
 import VendorCard from "../components/VendorCard";
+import { useNavigate } from "react-router-dom";
 
 function Vendors() {
     const [vendors, setVendors] = useState([])
+    const navigate = useNavigate()
 
     useEffect(()=>{
         fetch('/vendors')
@@ -23,6 +25,7 @@ function Vendors() {
             <h1>Vendors</h1>
             <h4>Please select 1 vendor from the list below</h4>
             {vendorsList}
+            <button onClick= {()=>{navigate('/entertainment')}}> Next </button>
         </>
         )
 };
