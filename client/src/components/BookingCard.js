@@ -18,18 +18,20 @@ function BookingCard({ booking, setBookings, bookings }) {
         setEditing(false);
     }
 
-    function handleDeleteReview() {
+    function handleDeleteBooking() {
         fetch(`/bookings/${booking.id}`, {method: "DELETE"})
         .then((r)=>{
             if (r.status === 204) {
                 const updatedBookings = bookings.filter((b)=> b.id !== booking.id)
                 setBookings(updatedBookings)
+            } else if (r.status === 404) {
+                setErrors(["Booking not found"]);
             } else {
-                console.error("Failed to delete booking")
+                setErrors(["Failed to delete booking"]);
             }
         })
         .catch((error) => {
-            console.error('Error logging out:', error);
+            console.error("Error deleting booking:", error);
         });
     }
 
@@ -72,28 +74,36 @@ function BookingCard({ booking, setBookings, bookings }) {
         })
         .then((r)=>{
             if (r.status === 202) {
-                return r.json();
+                r.json()
+                .then((b)=>{
+                    setTotal(b.calculate_total_price)
+                    const updatedBookings = bookings.map((b) => {
+                        if (b.id === booking.id) {
+                            return {
+                                ...b, 
+                                start_time: selectedStartTime, 
+                                end_time: selectedEndTime,
+                                number_of_guests: values.numberOfGuests,
+                                
+                            };
+                        } else {
+                            return b;
+                        }
+                    });
+                    setBookings(updatedBookings);
+                    setEditing(false);
+                })
             } else {
-                throw new Error("Failed to update booking");
+                r.json()
+                .then((data)=> {
+                    if (data.error) {
+                        setErrors([data.error])
+                    } else {
+                        setErrors(data.errors);
+                    }
+                });
+
             }
-        })
-        .then((b)=>{
-            setTotal(b.calculate_total_price)
-            const updatedBookings = bookings.map((b) => {
-                if (b.id === booking.id) {
-                    return {
-                        ...b, 
-                        start_time: selectedStartTime, 
-                        end_time: selectedEndTime,
-                        number_of_guests: values.numberOfGuests,
-                        
-                    };
-                } else {
-                    return b;
-                }
-            });
-            setBookings(updatedBookings);
-            setEditing(false);
         })
         .catch((error) => {
             console.error("Error updating booking", error);
@@ -163,22 +173,18 @@ function BookingCard({ booking, setBookings, bookings }) {
                     onChange={ formik.handleChange }>
                 </input>
                 { displayErrors(formik.errors.numberOfGuests) }
-
                 {venue !== null? (
                 <>
                 <h4>Venue:</h4>
                 <p>{venue.name}</p>
                 </>
                 ) : (null)}
-
-
                 {vendor !== null? (
                 <>
                 <h4>Vendor:</h4>
                 <p>{vendor.name}</p>
                 </>
                 ) : (null)}
-
                 {entertainment !== null? (
                 <>
                 <h4>Entertainment:</h4>
@@ -202,32 +208,28 @@ function BookingCard({ booking, setBookings, bookings }) {
                 <p>{new Date(end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <h4>Number of Guests:</h4>
                 <p>{number_of_guests}</p>
-
                 {venue !== null? (
                 <>
                 <h4>Venue:</h4>
                 <p>{venue.name}</p>
                 </>
                 ) : (null)}
-
                 {vendor !== null? (
                 <>
                 <h4>Vendor:</h4>
                 <p>{vendor.name}</p>
                 </>
                 ) : (null)}
-
                 {entertainment !== null? (
                 <>
                 <h4>Entertainment:</h4>
                 <p>{entertainment.name}</p>
                 </>
                 ) : (null)}
-
                 <h4>Total Fee:</h4>
                 <p>{total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 <button onClick={handleEdit}>Edit</button> &nbsp;
-                <button onClick={handleDeleteReview}>Delete</button>
+                <button onClick={handleDeleteBooking}>Delete</button>
                 {errors.map((err)=>(
                     <p key={err}>{err}</p>
                 ))}
