@@ -28,7 +28,6 @@ function Confirmation() {
     if (bookingVenue) {
         updatedTotalFee += bookingVenue.hourly_fee * durationInHours(startTime, endTime)
         setTotalFee(updatedTotalFee)
-        console.log(updatedTotalFee)
     }
 
     const adjustedStartTime = new Date(startTime.getTime() - (startTime.getTimezoneOffset() * 60000))
@@ -88,13 +87,13 @@ function Confirmation() {
                 <p>{numberOfGuests}</p>
                 <h4>Total fee:</h4>
                 <p>Venue Fee:</p>
-                <p>${bookingVenue.hourly_fee} per hour * {durationInHours(startTime, endTime)} hours </p>
+                <p>${bookingVenue.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>${(bookingVenue.hourly_fee * durationInHours(startTime, endTime)).toFixed(2)}</p>
                 <p>Vendor fee:  </p>
-                <p>${bookingVendor.per_person_fee} per person * {numberOfGuests} guests </p>
+                <p>${bookingVendor.per_person_fee} per person * {numberOfGuests} {numberOfGuests <= 1 ? 'guest':'guests'} </p>
                 <p>${(bookingVendor.per_person_fee * numberOfGuests).toFixed(2)}</p>
                 <p>Entertainment fee: </p>
-                <p>${bookingEntertainment.hourly_fee} per hour * {durationInHours(startTime, endTime)} hours</p>
+                <p>${bookingEntertainment.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>${(bookingEntertainment.hourly_fee * durationInHours(startTime, endTime)).toFixed(2)}</p>
                 <p>= Total: ${totalFee.toFixed(2)}</p>
                 <button onClick={handleClick}>Confirm Booking</button>

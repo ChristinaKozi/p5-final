@@ -79,7 +79,7 @@ class Entertainment(db.Model, SerializerMixin):
 
 class Booking(db.Model, SerializerMixin):
     __tablename__ = 'bookings'
-    serialize_rules = ('-user.bookings','-venue.bookings', '-vendor.bookings','-entertainment.bookings',)
+    serialize_rules = ('-user.bookings','-venue.bookings', '-vendor.bookings','-entertainment.bookings','calculate_total_price',)
 
     id = db.Column(db.Integer, primary_key = True)
     start_time = db.Column(db.DateTime)

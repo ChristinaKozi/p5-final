@@ -1,4 +1,4 @@
-import React,{ useState } from "react"
+import React,{ useEffect, useState } from "react"
 import * as yup from 'yup'
 import { useFormik } from "formik";
 import { headers } from "../Globals";
@@ -6,6 +6,7 @@ import { headers } from "../Globals";
 
 function BookingCard({ booking, setBookings, bookings }) {
     const { start_time, end_time, number_of_guests, venue, entertainment, vendor } = booking
+    const [total, setTotal] = useState(booking.calculate_total_price)
     const [editing, setEditing] = useState(false)
     const [errors, setErrors] = useState([]);
 
@@ -68,20 +69,21 @@ function BookingCard({ booking, setBookings, bookings }) {
                 throw new Error("Failed to update booking");
             }
         })
-        .then(()=>{
+        .then((b)=>{
+            setTotal(b.calculate_total_price)
             const updatedBookings = bookings.map((b) => {
                 if (b.id === booking.id) {
                     return {
                         ...b, 
                         start_time: selectedStartTime, 
                         end_time: selectedEndTime,
-                        number_of_guests: values.numberOfGuests 
+                        number_of_guests: values.numberOfGuests,
+                        
                     };
                 } else {
                     return b;
                 }
             });
-            console.log(updatedBookings, 'poopy')
             setBookings(updatedBookings);
             setEditing(false);
         })
@@ -182,6 +184,8 @@ function BookingCard({ booking, setBookings, bookings }) {
                 <p>{vendor.name}</p>
                 <h4>Entertainment:</h4>
                 <p>{entertainment.name}</p>
+                <h4>Total Fee:</h4>
+                <p>${total.toFixed(2)}</p>
                 <button onClick={handleEdit}>Edit</button> &nbsp;
                 <button onClick={handleDeleteReview}>Delete</button>
                 {errors.map((err)=>(
