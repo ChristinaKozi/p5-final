@@ -36,24 +36,17 @@ function BookingCard({ booking, setBookings, bookings }) {
     }
 
     function handleSubmit(values) {
-        // console.log('Form values:', values);
 
         // creates datetime object for inputted date value
         const selectedDate = new Date(values.date);
         const adjustedDate = new Date(selectedDate.getTime())
         adjustedDate.setDate(selectedDate.getDate() + 1);
         
-        // console.log('adjusted date:', adjustedDate);
-        
         // creates datetime object for inputted start time value
         const selectedStartTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.startTime.split(':'));
-        
-        // console.log('Selected start time:', selectedStartTime);
     
         // creates datetime object for inputted end time value
         const selectedEndTime = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), adjustedDate.getDate(), ...values.endTime.split(':'));
-        
-        // console.log('Selected end time:', selectedEndTime);
 
         // converts to UTC time zone
         const adjustedStartTime = new Date(selectedStartTime.getTime() - (selectedStartTime.getTimezoneOffset() * 60000));
@@ -64,8 +57,6 @@ function BookingCard({ booking, setBookings, bookings }) {
             end_time: adjustedEndTime.toISOString(),
             number_of_guests: values.numberOfGuests,
         };
-        
-        // console.log('Booking data:', bookingData);
 
         fetch(`/bookings/${booking.id}`, {
             method: "PATCH",

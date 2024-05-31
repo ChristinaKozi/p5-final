@@ -1,4 +1,4 @@
-import React, {useContext,useState} from "react";
+import React, { useContext, useState } from "react";
 import NavBar from "../components/NavBar"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
@@ -11,7 +11,7 @@ function Confirmation() {
     const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment} = useContext(BookingContext) 
 
     const navigate = useNavigate();
-
+    
     const durationInHours = (start, end) => {
         const durationInMillis = new Date(end) - new Date(start);
         return (durationInMillis / (1000 * 60 * 60)).toFixed(2);
@@ -33,7 +33,6 @@ function Confirmation() {
     // converts to UTC time zone
     const adjustedStartTime = new Date(startTime.getTime() - (startTime.getTimezoneOffset() * 60000))
     const adjustedEndTime = new Date(endTime.getTime() - (endTime.getTimezoneOffset() * 60000))
-
 
     const bookingData = {
         start_time: adjustedStartTime.toISOString(),
@@ -73,7 +72,6 @@ function Confirmation() {
         <NavBar />
         </header>
         <h1>Confirmation Page</h1>
-        <p> - Do not refresh page - </p>
         <p> - Please review and confirm the information below - </p>
         {user ? (
         <>
