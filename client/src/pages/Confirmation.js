@@ -84,6 +84,7 @@ function Confirmation() {
                 <p>{endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <h4>Number of Guests:</h4>
                 <p>{numberOfGuests}</p>
+                <br></br>
                 <h4>Total fee:</h4>
                 {bookingVenue !== null ? (
                 <>
