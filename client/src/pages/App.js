@@ -18,6 +18,8 @@ function App() {
       <div className= 'header'>
         <h1>Home/Splash Page</h1> 
         <h2>Hi, {user.username}!</h2>
+      </div>
+      <div className="center">
         <Home />
         <p>Let's get started!</p>
       </div>

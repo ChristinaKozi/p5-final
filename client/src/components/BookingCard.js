@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { headers } from "../Globals";
 
 
-function BookingCard({ booking, setBookings, bookings }) {
+function BookingCard({ booking, setBookings, bookings, index }) {
     const { start_time, end_time, number_of_guests, venue, entertainment, vendor } = booking
     const [total, setTotal] = useState(booking.calculate_total_price)
     const [editing, setEditing] = useState(false)
@@ -130,6 +130,7 @@ function BookingCard({ booking, setBookings, bookings }) {
             <>
             <li className="card">
             <form onSubmit={formik.handleSubmit} >
+            <h3>My Booking: {index+1}</h3>
                 <h4>Date:</h4>
                 <input 
                     id='date'
@@ -194,6 +195,7 @@ function BookingCard({ booking, setBookings, bookings }) {
         ) : (
             <>
             <li className="card">
+                <h3>My Booking: {index+1}</h3>
                 <h4>Date:</h4>
                 <p>{new Date(start_time).toLocaleDateString()}</p>
                 <h4>Start Time:</h4>

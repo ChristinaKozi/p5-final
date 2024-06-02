@@ -11,6 +11,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: rgb(240, 231, 219);
 }
 
 .map-control {
@@ -38,11 +39,15 @@ body {
 
 .cards {
   list-style: none;
+  background-color: rgb(214, 160, 44);
 }
 
 
 .card {
   margin: 2rem;
+  background-color: rgb(227, 195, 124);
+  text-align: center;
+  
 }
 
 .card button {
@@ -80,4 +85,31 @@ body {
 
 .header {
   text-align: center;
+  background-color: rgb(214, 160, 44);
+  color:black
+}
+
+.center {
+  text-align: center;
+  background-color: rgb(227, 195, 124);
+  color:black
+}
+
+.navbar > a{
+  display: inline-block;
+  box-sizing: border-box;
+  width: 90px;
+  padding: 5px;
+  margin: 0 6px 6px;
+  background: rgb(214, 160, 44);;
+  text-decoration: none;
+  text-align: center;
+  font-size: min(10vw, 15px) ;
+  color:black
+}
+
+a.active {
+  background: rgb(240, 231, 219);
+  color: black;
+  border: 1px solid rgb(220, 173, 71);
 }

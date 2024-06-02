@@ -35,9 +35,12 @@ function UserProfile() {
 
     const filteredBookings = bookings.filter((booking)=>booking.user_id === user.id)
     
-    const bookingList = filteredBookings.map(booking=>{
-        return <BookingCard key={booking.id} booking={booking} bookings={bookings} setBookings={setBookings} />
-    })
+    const bookingList = filteredBookings.map((booking, index)=>{
+        return (
+        <BookingCard key={booking.id} booking={booking} bookings={bookings} setBookings={setBookings} index={index}>
+        </BookingCard>
+        );
+    });
 
     return (
         <>
@@ -49,7 +52,7 @@ function UserProfile() {
         {user ? <h2>{user.username}'s events:</h2>: <h2>No user</h2>}
         </div>
         <li className="cards">
-            {user && bookings !== null ? bookingList : <h2>No bookings</h2>}
+            {user && bookings !== null ? bookingList : <h2 style = {{ textAlign: 'center' }}>No bookings</h2>}
             {errors.map((err)=>(
                     <p key={err}>{err}</p>
             ))}

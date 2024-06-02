@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
 function NavBar() {
   const {user, setUser} = useContext(UserContext)
+  const navigate = useNavigate()
 
   function handleLogoutClick() {
+    navigate('/')
     if (!user) {
       return;
     }
@@ -13,7 +15,8 @@ function NavBar() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.status === 401) {
         setUser(null);
-      } 
+      }
+      navigate('/')
     })
     .catch((error) => {
       console.error('Error logging out:', error);
@@ -25,28 +28,22 @@ function NavBar() {
       <NavLink to="/login" className="nav-link">
         Login
       </NavLink>
-      <br/>
       <NavLink to="/" className="nav-link">
         Home
       </NavLink>
-      <br/>
       <NavLink to="/venues" className="nav-link">
         Venues
       </NavLink>
-      <br/>
       <NavLink to="/vendors" className="nav-link">
         Vendors
       </NavLink>
-      <br/>
       <NavLink to="/entertainment" className="nav-link">
         Entertainment
       </NavLink>
-      <br/>
       <NavLink to="/user" className="nav-link">
         User Profile
       </NavLink>
-      <br/>
-      <NavLink to='/' className="nav-link" onClick={handleLogoutClick}>
+      <NavLink onClick={handleLogoutClick}>
           Logout
       </NavLink>
     </nav>
