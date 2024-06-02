@@ -71,8 +71,10 @@ function Confirmation() {
         <header>
         <NavBar />
         </header>
-        <h1>Confirmation Page</h1>
-        <p> - Please review and confirm the information below - </p>
+        <div className="header">
+            <h1>Confirmation Page</h1>
+            <p> - Please review and confirm the information below - </p>
+        </div>
         {user ? (
         <>
             <article>

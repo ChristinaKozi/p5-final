@@ -22,9 +22,11 @@ function Vendors() {
             <header>
                 <NavBar />
             </header>
-            <h1>Vendors</h1>
-            <h4>Please select 1 vendor from the list below</h4>
-            {vendorsList}
+            <div className="header">
+                <h1>Vendors</h1>
+                <h4>Please select 1 vendor from the list below</h4>
+            </div>
+            <ul className="cards">{vendorsList}</ul>
             <button onClick= {()=>{navigate('/entertainment')}}> Next </button>
         </>
         )

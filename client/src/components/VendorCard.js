@@ -19,7 +19,7 @@ function VendorCard({ vendor }) {
     <>
         {user ? (
             <>
-                <br />
+            <li className="card">
                 <form onSubmit={handleSubmit}>
                     <h2>{name}</h2>
                     <h4>Vendor Type:</h4>
@@ -29,11 +29,11 @@ function VendorCard({ vendor }) {
                     <h4>To move forward, click 'Choose This Vendor'</h4>
                     <button type='submit'>Choose This Vendor</button> 
                 </form>
-                <br />
+            </li>
             </>
         ) : (
             <>
-                <br />
+            <li className="card">
                 <article>
                     <h2>{name}</h2>
                     <h4>Vendor Type:</h4>
@@ -41,7 +41,7 @@ function VendorCard({ vendor }) {
                     <h4>Fee Per Person:</h4>
                     <p>${per_person_fee}</p>
                 </article>
-                <br />
+            </li>
             </>
         )}
     </>

@@ -22,8 +22,11 @@ function Entertainment() {
         <header>
             <NavBar />
         </header>
-        <h1>Entertainment</h1>
-        {entertainmentsList}
+        <div className="header">
+            <h1>Entertainment</h1>
+            <h4>Please select 1 type of entertainment from the list below</h4>
+        </div>
+        <ul className="cards">{entertainmentsList}</ul>
         <button onClick= {()=>{navigate('/confirmation')}}> Next </button>
     </>
     )

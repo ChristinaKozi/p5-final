@@ -4,7 +4,7 @@ import VenueCard from "../components/VenueCard";
 import { useNavigate } from "react-router-dom";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { setDefaults, geocode, RequestType } from "react-geocode"
-// import '../css/map.css'
+import '../css/index.css'
 
 function Venues({ google }) {
     const [venues, setVenues] = useState([])
@@ -67,26 +67,24 @@ function Venues({ google }) {
             <header>
                 <NavBar />
             </header>
-            <div className="content">
-            <div className="map">
-                    <Map
-                        google={google}
-                        style={{ width: '100%', height: '400px' }}
-                        initialCenter={{
-                            lat: 39.8283, 
-                            lng: -98.5795
-                        }}
-                        zoom={4}
-                    >
-                        {markers}
-                    </Map>
-                </div>
-                <div className="venue-list">
-                    <h1>Venues</h1>
-                    <h4>Please select 1 venue from the list below</h4>
-                    {venuesList}
-                </div>
+            <div className="header">
+                <h1>Venues</h1>
+                <h4>Please select 1 venue from the list below</h4>
             </div>
+            <div className="map">
+                <Map
+                    google={google}
+                    style={{ width: '100%', height: '400px' }}
+                    initialCenter={{
+                        lat: 39.8283, 
+                        lng: -98.5795
+                    }}
+                    zoom={4}
+                >
+                    {markers}
+                </Map>
+            </div>
+            <ul className="cards" style={{ marginTop: '400px' }}>{venuesList}</ul>
             <button onClick= {()=>{navigate('/vendors')}}> Next </button>
         </>
     )

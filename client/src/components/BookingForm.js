@@ -54,8 +54,9 @@ function BookingForm() {
     }
 
     return (
+      <div className="form-container">
       <form onSubmit={formik.handleSubmit}>
-        {/* <formfeild> */}
+        <br></br>
           <label>Date: </label>
           <input
             id='date'
@@ -65,10 +66,8 @@ function BookingForm() {
             onChange={ formik.handleChange }>
           </input>
           { displayErrors(formik.errors.date) }
-        {/* </formfeild> */}
-        <br />
-        <br />
-        {/* <formfeild> */}
+          <br></br>
+          <br></br>
           <label>Start Time: </label>
           <input
             id='startTime'
@@ -78,10 +77,8 @@ function BookingForm() {
             onChange={ formik.handleChange }>
           </input>
           { displayErrors(formik.errors.startTime) }
-        {/* </formfeild> */}
-        <br />
-        <br />
-        {/* <formfeild> */}
+          <br></br>
+          <br></br>
           <label>End Time: </label>
           <input
             id='endTime'
@@ -91,10 +88,8 @@ function BookingForm() {
             onChange={ formik.handleChange }>
           </input>
           { displayErrors(formik.errors.endTime) }
-        {/* </formfeild> */}
-        <br />
-        <br />
-        {/* <formfeild> */}
+          <br></br>
+          <br></br>
           <label>Number of Guests: </label>
           <input
             id='numberOfGuests'
@@ -104,13 +99,11 @@ function BookingForm() {
             onChange={ formik.handleChange }>
           </input>
           { displayErrors(formik.errors.numberOfGuests) }
-        {/* </formfeild> */}
-        <br />
-        <br />
-        {/* <formfeild> */}
+          <br></br>
+          <br></br>
           <button type='submit'>Create Booking</button>
-        {/* </formfeild> */}
       </form>
+      </div>
     )
 }
 

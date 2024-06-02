@@ -41,15 +41,19 @@ function UserProfile() {
 
     return (
         <>
-            <header>
-                <NavBar />
-            </header>
-            <h1>User Profile</h1>
-            {user? <h2>{user.username}'s events:</h2>: <h2>No user</h2>}
+        <header>
+            <NavBar />
+        </header>
+        <div className="header">
+        <h1>User Profile</h1>
+        {user ? <h2>{user.username}'s events:</h2>: <h2>No user</h2>}
+        </div>
+        <li className="cards">
             {user && bookings !== null ? bookingList : <h2>No bookings</h2>}
             {errors.map((err)=>(
                     <p key={err}>{err}</p>
-                ))}
+            ))}
+        </li>
         </>
     )
 };

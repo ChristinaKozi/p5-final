@@ -2,6 +2,7 @@ import React, { useContext} from "react";
 import { UserContext } from "../contexts/UserContext";
 import { BookingContext } from "../contexts/BookingContext";
 import { useNavigate } from "react-router-dom";
+import '../css/index.css'
 
 function VenueCard({ venue }) {
     const { user } = useContext(UserContext) 
@@ -19,7 +20,7 @@ function VenueCard({ venue }) {
         <>
             {user ? (
                 <>
-                    <br />
+                <li className="card">
                     <form onSubmit={handleSubmit}>
                         <h2>{name}</h2>
                         <h4>Location:</h4>
@@ -35,11 +36,11 @@ function VenueCard({ venue }) {
                         <h4>To move forward, click 'Choose This Venue'</h4>
                         <button type='submit'>Choose This Venue</button> 
                     </form>
-                    <br />
+                </li>
                 </>
             ) : (
                 <>
-                    <br />
+                <li className="card">
                     <article>
                         <h2>{name}</h2>
                         <h4>Location:</h4>
@@ -53,7 +54,7 @@ function VenueCard({ venue }) {
                         <h4>Rate per hour:</h4>
                         <p>${hourly_fee}</p>
                     </article>
-                    <br />
+                </li>
                 </>
             )}
         </>

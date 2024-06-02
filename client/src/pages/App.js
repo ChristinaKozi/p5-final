@@ -15,10 +15,12 @@ function App() {
       <header>
         <NavBar />
       </header>
-      <h1>Home/Splash Page</h1> 
-      <h2>Hi, {user.username}!</h2>
-      <Home />
-      <p>Let's get started!</p>
+      <div className= 'header'>
+        <h1>Home/Splash Page</h1> 
+        <h2>Hi, {user.username}!</h2>
+        <Home />
+        <p>Let's get started!</p>
+      </div>
       <BookingForm />
     </>
   )

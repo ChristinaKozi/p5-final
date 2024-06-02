@@ -19,7 +19,7 @@ function EntertainmentCard({ entertainment }) {
         <>
         {user ? (
             <>
-                <br />
+            <li className="card">
                 <form onSubmit={handleSubmit}>
                     <h2>{name}</h2>
                     <h4>Type of Entertainment:</h4>
@@ -29,11 +29,11 @@ function EntertainmentCard({ entertainment }) {
                     <h4>To move forward, click 'Choose This Entertainment'</h4>
                     <button type='submit'>Choose This Entertainment</button> 
                 </form>
-                <br />
+            </li>
             </>
         ) : (
             <>
-                <br />
+            <li className="card">
                 <article>
                 <h2>{name}</h2>
                     <h4>Type of Entertainment:</h4>
@@ -41,7 +41,7 @@ function EntertainmentCard({ entertainment }) {
                     <h4>Rate per hour:</h4>
                     <p>${hourly_fee}</p>
                 </article>
-                <br />
+            </li>
             </>
         )}
         </>

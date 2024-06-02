@@ -128,6 +128,7 @@ function BookingCard({ booking, setBookings, bookings }) {
         <br></br><br></br>
         {editing ? (
             <>
+            <li className="card">
             <form onSubmit={formik.handleSubmit} >
                 <h4>Date:</h4>
                 <input 
@@ -188,9 +189,11 @@ function BookingCard({ booking, setBookings, bookings }) {
             {errors.map((err)=>(
                     <p key={err}>{err}</p>
                 ))}
+            </li>
             </>
         ) : (
             <>
+            <li className="card">
                 <h4>Date:</h4>
                 <p>{new Date(start_time).toLocaleDateString()}</p>
                 <h4>Start Time:</h4>
@@ -224,6 +227,7 @@ function BookingCard({ booking, setBookings, bookings }) {
                 {errors.map((err)=>(
                     <p key={err}>{err}</p>
                 ))}
+            </li>
             </>)}
         <br></br><br></br>
     </>

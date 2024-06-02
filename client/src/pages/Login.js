@@ -13,37 +13,39 @@ function Login() {
     if (user) return <App />;
 
     return (
-        <>
-            <header>
-                <NavBar />
-            </header>
-            {showLogin ? (
-                <>
-                <h2>Login</h2>
-                <LoginForm />
-                <p>
-                  Don't have an account? &nbsp;
-                  <button onClick={() => setShowLogin(false)}>
-                    Sign Up
-                  </button>
-                </p>
-                </>
-            ) : (
-            <>
-                <h2>Create Account</h2>
-                <SignUpForm />
-                <p>
-                  Already have an account? &nbsp;
-                  <button onClick={() => setShowLogin(true)}>
-                    Log In
-                  </button>
-                </p>
-            </>
-            )
-            }
-            <Home />
-        </>
-        )
+    <>
+      <header>
+          <NavBar />
+      </header>
+      <div className="header">
+      {showLogin ? (
+          <>
+          <h2>Login</h2>
+          <LoginForm />
+          <p>
+            Don't have an account? &nbsp;
+            <button onClick={() => setShowLogin(false)}>
+              Sign Up
+            </button>
+          </p>
+          </>
+      ) : (
+      <>
+      <div className="header"></div>
+          <h2>Create Account</h2>
+          <SignUpForm />
+          <p>
+            Already have an account? &nbsp;
+            <button onClick={() => setShowLogin(true)}>
+              Log In
+            </button>
+          </p>
+      </>
+      )}
+      <Home />
+      </div>
+  </>
+  )
 }
 
 export default Login;
