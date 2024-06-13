@@ -20,6 +20,7 @@ function Login() {
       <div className="header">
       {showLogin ? (
           <>
+          <Home />
           <h2>Login</h2>
           <LoginForm />
           <p>
@@ -42,7 +43,6 @@ function Login() {
           </p>
       </>
       )}
-      <Home />
       </div>
   </>
   )

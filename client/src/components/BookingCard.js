@@ -129,67 +129,67 @@ function BookingCard({ booking, setBookings, bookings, index }) {
         {editing ? (
             <>
             <li className="card">
-            <form onSubmit={formik.handleSubmit} >
-            <h3>My Booking: {index+1}</h3>
-                <h4>Date:</h4>
-                <input 
-                    id='date'
-                    type='date'
-                    placeholder="Date"
-                    value={formik.values.date}
-                    onChange={ formik.handleChange } />
-                { displayErrors(formik.errors.date) }
-                <h4>Start Time:</h4>
-                <input
-                    id='startTime'
-                    type='time'
-                    placeholder="Start Time"
-                    value={formik.values.startTime}
-                    onChange={ formik.handleChange }>
-                </input>
-                { displayErrors(formik.errors.startTime) }
-                <h4>End Time:</h4>
-                <input
-                    id='endTime'
-                    type='time'
-                    placeholder="End Time"
-                    value={formik.values.endTime}
-                    onChange={ formik.handleChange }>
-                </input>
-                { displayErrors(formik.errors.endTime) }
-                <h4>Number of Guests:</h4>
-                <input
-                    id='numberOfGuests'
-                    type='number'
-                    placeholder="Number of guests"
-                    value={formik.values.numberOfGuests}
-                    onChange={ formik.handleChange }>
-                </input>
-                { displayErrors(formik.errors.numberOfGuests) }
-                {venue !== null? (
-                <>
-                <h4>Venue:</h4>
-                <p>{venue.name}</p>
-                </>
-                ) : (null)}
-                {vendor !== null? (
-                <>
-                <h4>Vendor:</h4>
-                <p>{vendor.name}</p>
-                </>
-                ) : (null)}
-                {entertainment !== null? (
-                <>
-                <h4>Entertainment:</h4>
-                <p>{entertainment.name}</p>
-                </>
-                ) : (null)}
-                <button type='submit'>Save</button> &nbsp;
-                <button onClick={handleCancelEdit}>Cancel</button>
-            </form>
-            {errors.map((err)=>(
-                    <p key={err}>{err}</p>
-                ))}
+                <form onSubmit={formik.handleSubmit} >
+                    <h3>My Booking: {index+1}</h3>
+                    <h4>Date:</h4>
+                    <input 
+                        id='date'
+                        type='date'
+                        placeholder="Date"
+                        value={formik.values.date}
+                        onChange={ formik.handleChange } />
+                    { displayErrors(formik.errors.date) }
+                    <h4>Start Time:</h4>
+                    <input
+                        id='startTime'
+                        type='time'
+                        placeholder="Start Time"
+                        value={formik.values.startTime}
+                        onChange={ formik.handleChange }>
+                    </input>
+                    { displayErrors(formik.errors.startTime) }
+                    <h4>End Time:</h4>
+                    <input
+                        id='endTime'
+                        type='time'
+                        placeholder="End Time"
+                        value={formik.values.endTime}
+                        onChange={ formik.handleChange }>
+                    </input>
+                    { displayErrors(formik.errors.endTime) }
+                    <h4>Number of Guests:</h4>
+                    <input
+                        id='numberOfGuests'
+                        type='number'
+                        placeholder="Number of guests"
+                        value={formik.values.numberOfGuests}
+                        onChange={ formik.handleChange }>
+                    </input>
+                    { displayErrors(formik.errors.numberOfGuests) }
+                    {venue !== null? (
+                    <>
+                    <h4>Venue:</h4>
+                    <p>{venue.name}</p>
+                    </>
+                    ) : (null)}
+                    {vendor !== null? (
+                    <>
+                    <h4>Vendor:</h4>
+                    <p>{vendor.name}</p>
+                    </>
+                    ) : (null)}
+                    {entertainment !== null? (
+                    <>
+                    <h4>Entertainment:</h4>
+                    <p>{entertainment.name}</p>
+                    </>
+                    ) : (null)}
+                    <button type='submit'>Save</button> &nbsp;
+                    <button onClick={handleCancelEdit}>Cancel</button>
+                </form>
+                {errors.map((err)=>(
+                        <p key={err}>{err}</p>
+                    ))}
             </li>
             </>
         ) : (

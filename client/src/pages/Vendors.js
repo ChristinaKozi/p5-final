@@ -27,7 +27,9 @@ function Vendors() {
                 <h4>Please select 1 vendor from the list below</h4>
             </div>
             <ul className="cards">{vendorsList}</ul>
+            <div style={{ textAlign: 'right' }}>
             <button onClick= {()=>{navigate('/entertainment')}}> Next </button>
+            </div>
         </>
         )
 };

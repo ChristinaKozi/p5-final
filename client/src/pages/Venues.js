@@ -17,6 +17,12 @@ function Venues({ google }) {
         .then(venues=>{setVenues(venues)})
     }, [])
 
+    const venuesList = venues.map(venue => (
+        <VenueCard key={venue.id} venue={venue} />
+    ));
+
+    const venueAddressList = venues.map(venue => venue.location);  
+
     useEffect(() => {
         setDefaults({
             key: "AIzaSyDrI74TE84KxBVp4dHd8Zlid00GXPxK07Y",
@@ -54,13 +60,7 @@ function Venues({ google }) {
             .catch(error => {
                 console.error('Error geocoding addresses:', error);
             });
-    }, [venues]); 
-
-    const venuesList = venues.map(venue => (
-        <VenueCard key={venue.id} venue={venue} />
-    ));
-
-    const venueAddressList = venues.map(venue => venue.location);    
+    }, [venues]);   
     
     return (
         <>
@@ -85,7 +85,9 @@ function Venues({ google }) {
                 </Map>
             </div>
             <ul className="cards" style={{ marginTop: '400px' }}>{venuesList}</ul>
-            <button onClick= {()=>{navigate('/vendors')}}> Next </button>
+            <div style={{ textAlign: 'right' }}>
+                <button onClick= {()=>{navigate('/vendors')}}> Next </button>
+            </div>
         </>
     )
 };

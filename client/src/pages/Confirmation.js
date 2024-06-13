@@ -77,7 +77,8 @@ function Confirmation() {
         </div>
         {user ? (
         <>
-            <article>
+            <article style={{ textAlign: 'center' }}>
+                <h4 style={{ textDecoration: 'underline' }}>Booking Details:</h4>
                 <h4>Date:</h4>
                 <p>{date.toLocaleDateString()}</p>
                 <h4>Start Time:</h4>
@@ -87,10 +88,10 @@ function Confirmation() {
                 <h4>Number of Guests:</h4>
                 <p>{numberOfGuests}</p>
                 <br></br>
-                <h4>Total fee:</h4>
+                <h4 style={{ textDecoration: 'underline' }}>Total fee:</h4>
                 {bookingVenue !== null ? (
                 <>
-                <p>Venue Fee: <strong>{bookingVenue.name}</strong></p>
+                <p>- Venue Fee: <strong>{bookingVenue.name}</strong></p>
                 <p>${bookingVenue.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>{(bookingVenue.hourly_fee * durationInHours(startTime, endTime)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 </>
@@ -98,7 +99,7 @@ function Confirmation() {
 
                 {bookingVendor !== null ? (
                 <>
-                <p>Vendor fee: <strong>{bookingVendor.name}</strong> </p>
+                <p>- Vendor fee: <strong>{bookingVendor.name}</strong> </p>
                 <p>${bookingVendor.per_person_fee} per person * {numberOfGuests} {numberOfGuests <= 1 ? 'guest':'guests'} </p>
                 <p>{(bookingVendor.per_person_fee * numberOfGuests).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 </>
@@ -106,14 +107,17 @@ function Confirmation() {
 
                 {bookingEntertainment !== null ? (
                 <>
-                <p>Entertainment fee: <strong>{bookingEntertainment.name}</strong></p>
+                <p>- Entertainment fee: <strong>{bookingEntertainment.name}</strong></p>
                 <p>${bookingEntertainment.hourly_fee} per hour * {durationInHours(startTime, endTime)} {durationInHours(startTime, endTime) <= 1 ? 'hour':'hours'} </p>
                 <p>{(bookingEntertainment.hourly_fee * durationInHours(startTime, endTime)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                 </>
                 ) : (null) }
-
+                <p>------------------------------------</p>
                 <p><strong> = Total: {totalFee.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong></p>
                 <button onClick={handleClick}>Confirm Booking</button>
+                <br></br>
+                <br></br>
+                <br></br>
                 {errors.map((err)=>(
                     <p key={err}>{err}</p>
                 ))}

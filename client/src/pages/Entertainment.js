@@ -27,7 +27,9 @@ function Entertainment() {
             <h4>Please select 1 type of entertainment from the list below</h4>
         </div>
         <ul className="cards">{entertainmentsList}</ul>
-        <button onClick= {()=>{navigate('/confirmation')}}> Next </button>
+        <div style={{ textAlign: 'right' }}>
+            <button onClick= {()=>{navigate('/confirmation')}}> Next </button>
+        </div>
     </>
     )
 };
