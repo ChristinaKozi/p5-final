@@ -33,14 +33,20 @@ function UserProfile() {
         })
     },[user])
 
-    const filteredBookings = bookings.filter((booking)=>booking.user_id === user.id)
-    
-    const bookingList = filteredBookings.map((booking, index)=>{
-        return (
-        <BookingCard key={booking.id} booking={booking} bookings={bookings} setBookings={setBookings} index={index}>
-        </BookingCard>
-        );
-    });
+    useEffect(() => {
+        const filteredBookings = bookings.filter((booking)=>booking.user_id === user.id)
+        
+        const bookingList = filteredBookings.map((booking, index)=>{
+            return (
+            <BookingCard key={booking.id} booking={booking} bookings={bookings} setBookings={setBookings} index={index}>
+            </BookingCard>
+            );
+        });
+
+        setBookingList(bookingList); 
+    }, [bookings, user])
+
+    const [bookingList, setBookingList] = useState([]); 
 
     return (
         <>

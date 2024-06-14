@@ -17,12 +17,6 @@ function Venues({ google }) {
         .then(venues=>{setVenues(venues)})
     }, [])
 
-    const venuesList = venues.map(venue => (
-        <VenueCard key={venue.id} venue={venue} />
-    ));
-
-    const venueAddressList = venues.map(venue => venue.location);  
-
     useEffect(() => {
         setDefaults({
             key: "AIzaSyDrI74TE84KxBVp4dHd8Zlid00GXPxK07Y",
@@ -60,7 +54,13 @@ function Venues({ google }) {
             .catch(error => {
                 console.error('Error geocoding addresses:', error);
             });
-    }, [venues]);   
+    }, [venues]); 
+
+    const venuesList = venues.map(venue => (
+        <VenueCard key={venue.id} venue={venue} />
+    ));
+
+    const venueAddressList = venues.map(venue => venue.location);    
     
     return (
         <>

@@ -130,7 +130,7 @@ function BookingCard({ booking, setBookings, bookings, index }) {
             <>
             <li className="card">
                 <form onSubmit={formik.handleSubmit} >
-                    <h3>My Booking: {index+1}</h3>
+                    <h3 style={{ textDecoration: 'underline' }}>My Booking: {index+1}</h3>
                     <h4>Date:</h4>
                     <input 
                         id='date'
@@ -195,7 +195,7 @@ function BookingCard({ booking, setBookings, bookings, index }) {
         ) : (
             <>
             <li className="card">
-                <h3>My Booking: {index+1}</h3>
+                <h3 style={{ textDecoration: 'underline' }}>My Booking: {index+1}</h3>
                 <h4>Date:</h4>
                 <p>{new Date(start_time).toLocaleDateString()}</p>
                 <h4>Start Time:</h4>

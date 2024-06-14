@@ -11,6 +11,7 @@ function Confirmation() {
     const { date, startTime, endTime, numberOfGuests, bookingVenue, bookingVendor, bookingEntertainment} = useContext(BookingContext) 
 
     const navigate = useNavigate();
+    const [bookingConfirmed, setBookingConfirmed] = useState(false)
     
     const durationInHours = (start, end) => {
         const durationInMillis = new Date(end) - new Date(start);
@@ -63,6 +64,10 @@ function Confirmation() {
                 });
             }
         })
+        setBookingConfirmed(!bookingConfirmed)
+    }
+
+    function handleNav() {
         navigate('/user')
     }
 
@@ -75,8 +80,15 @@ function Confirmation() {
             <h1>Confirmation Page</h1>
             <p> - Please review and confirm the information below - </p>
         </div>
-        {user ? (
+        {user ? ( 
         <>
+            {bookingConfirmed ? ( 
+            <div style={{ textAlign: 'center' }}>
+                <p>Thank you for confirming your booking! </p> 
+                <p>You can find all of your booking details in your User Profile.</p>
+                <button onClick={handleNav}>Take me to my bookings</button> 
+            </div>
+            ) : ( 
             <article style={{ textAlign: 'center' }}>
                 <h4 style={{ textDecoration: 'underline' }}>Booking Details:</h4>
                 <h4>Date:</h4>
@@ -122,6 +134,7 @@ function Confirmation() {
                     <p key={err}>{err}</p>
                 ))}
             </article>
+            )}
         </>
         ) : (
         <>    
