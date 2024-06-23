@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 ipdb = "0.13.9"
 flask = "*"
-flask-sqlalchemy = "3.0.3"
+flask-sqlalchemy = "*"
 flask-bcrypt = "1.0.1"
 python-dotenv = "0.21.0"
 Werkzeug = "2.2.2"
@@ -16,6 +16,8 @@ flask-restful = "*"
 flask-cors = "*"
 faker = "*"
 faker-commerce = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_full_version = "3.8.13"

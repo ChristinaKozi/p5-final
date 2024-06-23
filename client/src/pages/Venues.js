@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react"
 import NavBar from "../components/NavBar";
 import VenueCard from "../components/VenueCard";
 import { useNavigate } from "react-router-dom";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react";
 import { setDefaults, geocode, RequestType } from "react-geocode"
 import '../css/index.css'
 
 function Venues({ google }) {
     const [venues, setVenues] = useState([])
     const [markers, setMarkers] = useState([])
+    const [activeMarker, setActiveMarker] = useState(null);
+    const [activeVenue, setActiveVenue] = useState(null);
     const navigate = useNavigate()
 
+   
     useEffect(()=>{
         fetch('/venues')
         .then((r)=>r.json())
@@ -24,31 +27,41 @@ function Venues({ google }) {
             region: "es",
         });
         
-        const geocodePromises = venueAddressList.map(address => {
-            return geocode(RequestType.ADDRESS, address)
+        const geocodePromises = venues.map(venue => {
+            return geocode(RequestType.ADDRESS, venue.location)
                 .then(response => {
                     if (response.results && response.results.length > 0) {
                         const { lat, lng } = response.results[0].geometry.location;
-                        return { lat, lng };
+                        return { lat, lng, name: venue.name };
                     } else {
                         return null; 
                     }
                 })
                 .catch(error => {
-                    console.error('Error geocoding address:', address, error);
+                    console.error('Error geocoding address:', venue.location, error);
                     return null;
                 });
         });
 
+
         Promise.all(geocodePromises)
             .then(responses => {
                 const validResponses = responses.filter(response => response !== null);
-                const markers = validResponses.map((response, index) => (
-                    <Marker
+                const markers = validResponses.map((response, index) => {
+                    return <Marker
                         key={index}
                         position={response}
+                        name={response.name} // Store venue name as a prop
+                        onMouseover={(props, marker, e) => {
+                            setActiveMarker(marker);
+                            setActiveVenue(props.name);
+                        }}
+                        onMouseout={(props, marker, e) => {
+                            setActiveMarker(null);
+                            setActiveVenue(null);
+                        }}
                     />
-                ));
+            });
                 setMarkers(markers);
             })
             .catch(error => {
@@ -59,8 +72,6 @@ function Venues({ google }) {
     const venuesList = venues.map(venue => (
         <VenueCard key={venue.id} venue={venue} />
     ));
-
-    const venueAddressList = venues.map(venue => venue.location);    
     
     return (
         <>
@@ -82,12 +93,21 @@ function Venues({ google }) {
                     zoom={4}
                 >
                     {markers}
+                    <InfoWindow
+                        marker={activeMarker}
+                        visible={activeMarker !== null}
+                    >
+                        <div>
+                            <h4>{activeVenue}</h4>
+                        </div>
+                    </InfoWindow>
                 </Map>
             </div>
             <ul className="cards" style={{ marginTop: '400px' }}>{venuesList}</ul>
             <div style={{ textAlign: 'right' }}>
                 <button onClick= {()=>{navigate('/vendors')}}> Next </button>
             </div>
+            <br></br>
         </>
     )
 };

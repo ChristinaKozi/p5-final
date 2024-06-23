@@ -39,7 +39,7 @@ body {
 
 .cards {
   list-style: none;
-  background-color: rgb(214, 160, 44);
+  background-color: rgb(199, 157, 67);
 }
 
 
@@ -85,7 +85,7 @@ body {
 
 .header {
   text-align: center;
-  background-color: rgb(214, 160, 44);
+  background-color: rgb(199, 157, 67);
   color:black
 }
 
@@ -101,7 +101,7 @@ body {
   width: 90px;
   padding: 5px;
   margin: 0 6px 6px;
-  background: rgb(214, 160, 44);;
+  background: rgb(199, 157, 67);
   text-decoration: none;
   text-align: center;
   font-size: min(10vw, 15px) ;

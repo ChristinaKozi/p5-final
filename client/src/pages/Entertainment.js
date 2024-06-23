@@ -30,6 +30,7 @@ function Entertainment() {
         <div style={{ textAlign: 'right' }}>
             <button onClick= {()=>{navigate('/confirmation')}}> Next </button>
         </div>
+        <br></br>
     </>
     )
 };

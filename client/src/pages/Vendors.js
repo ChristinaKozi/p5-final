@@ -30,6 +30,7 @@ function Vendors() {
             <div style={{ textAlign: 'right' }}>
             <button onClick= {()=>{navigate('/entertainment')}}> Next </button>
             </div>
+            <br></br>
         </>
         )
 };
