@@ -83,6 +83,7 @@ function SignUpForm() {
                     <p key={err}>{err}</p>
                 ))}
             </form>
+            <br></br>
         </div>
     )
 }

@@ -7,7 +7,7 @@ function Home() {
     return (
         <>
         <div className= 'header'>
-            <h1>Home Page</h1> 
+            <h1>- The Smarter Party Planner -</h1> 
             {user? <h2>Hi, {user.username}!</h2> : <></>}
         </div>
         <p>This is your one stop event planning tool!</p>
