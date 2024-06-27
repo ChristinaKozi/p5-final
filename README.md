@@ -184,25 +184,5 @@ The seed file contains test data for the application from the faker import, whic
 python server/seed.py
 ```
 
-### Deployment
-
-This app can be run on two seperate terminals running the front and backend independantly. It can also be run simultaneously on one terminal.
-Make sure to first build the production version of the app using this command:
-
-```console
-npm run build --prefix client
-```
-
-Followed by gunicorn command in your CLI to start the application:
-
-```console
-gunicorn --chdir server app:app
-```
-This may be useful when deploying as only one terminal is needed with that command. Further, The requirement.txt file is included in the files but if any changes are made to the pipfile, they need to reflected in the requirement file by running:
-
-```console
-pipenv requirements > requirements.txt
-```
-
 ### Conclusion
 Hope you enjoy playing around with all the possibilities of this app!
